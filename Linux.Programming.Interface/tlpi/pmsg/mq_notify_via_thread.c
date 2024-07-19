@@ -17,6 +17,7 @@
    See also mq_notify_thread.c.
 */
 #include <pthread.h>
+#include <signal.h>
 #include <mqueue.h>
 #include <fcntl.h>              /* For definition of O_NONBLOCK */
 #include "tlpi_hdr.h"

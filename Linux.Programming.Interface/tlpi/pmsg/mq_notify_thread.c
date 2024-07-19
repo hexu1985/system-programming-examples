@@ -15,6 +15,7 @@
    Demonstrate message notification via threads on a POSIX message queue.
 */
 #include <pthread.h>
+#include <signal.h>
 #include <mqueue.h>
 #include <fcntl.h>              /* For definition of O_NONBLOCK */
 #include "tlpi_hdr.h"
