@@ -7,4 +7,5 @@
 - [POSIX多线程程序设计](Programming.With.POSIX.Threads)
 - [深入理解计算机系统](Computer.Systems)
 - [Linux是怎样工作的](Linux.In.Practice)
+- [操作系统导论](Operating.Systems.Three.Easy.Pieces)
 
