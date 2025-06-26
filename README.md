@@ -9,4 +9,5 @@
 - [Linux是怎样工作的](Linux.In.Practice)
 - [操作系统导论](Operating.Systems.Three.Easy.Pieces)
 - [计算机是如何工作的](How.Computers.Really.Work)
+- [并发编程图解](Grokking.Concurrency)
 
