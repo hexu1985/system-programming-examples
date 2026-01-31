@@ -1,0 +1,9 @@
+#!/bin/sh
+#SBATCH -N 1
+#SBATCH -n 4
+#SBATCH -t 01:00:00
+
+# Do not place bash commands before the last SBATCH directive
+# Behavior can be unreliable
+
+mpirun -n 4 ./testapp &> run.out

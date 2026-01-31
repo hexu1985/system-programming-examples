@@ -1,0 +1,11 @@
+default:	MinWorkExampleMPI
+all:	MinWorkExampleMPI
+
+MinWorkExampleMPI: MinWorkExampleMPI.c
+	mpicc MinWorkExampleMPI.c  -o MinWorkExampleMPI
+
+clean:
+	rm -f MinWorkExampleMPI MinWorkExampleMPI.o
+
+distclean:
+	rm -f Makefile

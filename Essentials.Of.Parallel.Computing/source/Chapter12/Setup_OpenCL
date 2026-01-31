@@ -1,0 +1,49 @@
+The installation of OpenCL can be tricky. It is also constantly changing for each vendor. Please check for current instructions for your particular GPU model. The following instructions will give you an idea of the process.
+
+Often the OpenCL installation will be bundled with CUDA on Nvidia devices. Check those CUDA directories first before installing. If not there, then install OpenCL for Nvidia with the virtual package.
+
+sudo apt install ocl-icd-libopencl1 ocl-icd opencl-headers
+     or directly install the Nvidia packages
+sudo apt ocl-icd-libopencl1 nvidia-opencl-340 nvidia-compute-390
+
+The AMD installation is getting easier with the ROCm suite. To install OpenCL for AMD, you can just install OpenCL with the following or install the full ROCm suite as given in section 12.2.3.
+
+For drivers
+https://www.amd.com/en/support
+
+For experimental installation scripts
+https://github.com/RadeonOpenCompute/Experimental_ROC.git
+
+# these don't work in a virtual machine
+
+       sudo apt-get install rocm-opencl-dev
+   71  wget -qO - http://repo.radeon.com/rocm/apt/debian/rocm.gpg.key | sudo apt-key add -
+   72  echo 'deb [arch=amd64] http://repo.radeon.com/rocm/apt/debian/ xenial main' | sudo tee /etc/apt/sources.list.d/rocm.list
+   74  sudo apt update
+   75  sudo apt list --upgradable
+   76  sudo apt upgrade
+   77  sudo apt install rocm-dkms
+
+To check your installation
+/opt/rocm/bin/rocminfo
+/opt/rocm/opencl/bin/x86_64/clinfo
+
+To get a list of installed components
+apt list --installed | grep -i roc
+
+echo 'export PATH=$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64' | 
+	sudo tee -a /etc/profile.d/rocm.sh
+
+To remove rocm
+sudo apt autoremove rocm-dkms rocm-dev rocm-utils
+
+Don't mix amdgpu installs with the rocm installs
+  103  tar -Jxvf amdgpu-pro-19.50-967956-ubuntu-18.04.tar.xz
+  104  cd amdgpu-pro-19.50-967956-ubuntu-18.04/
+  105  ls
+  106  ./amdgpu-pro-install -y --opencl=pal,legacy
+
+You may need to add yourself to the video user’s group
+
+sudo usermod -a -G video $LOGNAME
+

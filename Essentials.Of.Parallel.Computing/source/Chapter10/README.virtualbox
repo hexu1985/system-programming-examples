@@ -1,0 +1,108 @@
+# These are instructions to setup an Ubuntu virtual machine for the examples in
+# this chapter. The first part of the instructions must be done manually. The
+# last half can be done by executing this file as a script as instructed.
+
+# Download VirtualBox and install
+
+# Download Ubuntu desktop install and save on local disk [ubuntu-20.04-desktop-amd64.iso]
+# Download VBoxGuestAdditions.iso
+# On Mac already at /Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso
+
+# Setup new machine
+# See the README.autovirtualbox script for directions for setting up base virtual machine
+
+# sign in
+
+# click through whats new
+
+# select dots at bottom left and start up a terminal
+
+# Reboot to get cut and paste and screen size fixed
+
+# Add user to sudo list if needed
+# su
+# visudo
+# add %vboxsf ALL=(ALL) ALL
+# exit
+
+# sudo apt-get install -y git
+
+# Need script on guest to execute
+# git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter10.git
+# Run the script Chapter10/README.virtualbox
+
+sudo apt-get -qq update && \
+    DEBIAN_FRONTEND=noninteractive \
+    sudo apt-get -qq install -y cmake git vim gcc g++ gfortran software-properties-common wget gnupg-agent \
+            2to3 python3-pip python3-matplotlib python3-numpy ghostscript evince gnuplot likwid \
+            mpich libmpich-dev \
+            openmpi-bin openmpi-doc libopenmpi-dev
+
+# Installing latest GCC compiler (version 10)
+sudo apt-get -qq install -y gcc-8 g++-8 gfortran-8 \
+                            gcc-10 g++-10 gfortran-10
+
+sudo update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-8       80 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-8          \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-8     \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-8
+sudo update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-9       90 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-9          \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-9     \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-9
+sudo update-alternatives \
+      --install /usr/bin/gcc      gcc      /usr/bin/gcc-10      70 \
+      --slave   /usr/bin/g++      g++      /usr/bin/g++-10         \
+      --slave   /usr/bin/gfortran gfortran /usr/bin/gfortran-10    \
+      --slave   /usr/bin/gcov     gcov     /usr/bin/gcov-10
+sudo chmod u+s /usr/bin/update-alternatives
+
+# Nvidia GPU software for computation
+# See https://docs.nvidia.com/hpc-sdk/index.html for Nvidia install instructions
+sudo wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-20-9_20.9_amd64.deb
+sudo wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-2020_20.9_amd64.deb
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y ./nvhpc-20-9_20.9_amd64.deb ./nvhpc-2020_20.9_amd64.deb
+
+# ROCm software installation
+sudo apt-get -qq install -y libnuma-dev
+
+sudo wget -qO - http://repo.radeon.com/rocm/apt/debian/rocm.gpg.key | apt-key add -
+sudo echo 'deb [arch=amd64] http://repo.radeon.com/rocm/apt/debian/ xenial main' > /etc/apt/sources.list.d/r
+sudo apt-get update -q
+sudo apt-get install -q -y rocm-opencl-dev rocm-dkms
+
+sudo apt-get install -y --no-install-recommends \
+        ocl-icd-libopencl1 \
+        clinfo \
+        opencl-headers \
+        ocl-icd-opencl-dev
+
+sudo mkdir -p /etc/OpenCL/vendors && \
+    sudo echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd
+
+sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+
+# If Software updater prompts, install updated software --> wait ....
+
+export PATH=${PATH}:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64
+
+export NVARCH=Linux_x86_64
+export NVCOMPILERS=/opt/nvidia/hpc_sdk
+export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man
+export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH
+
+#Put these in your dotfiles:
+
+echo "export PATH=${PATH}:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64"
+
+echo "export NVARCH=`uname -s`_`uname -m`"
+echo "export NVCOMPILERS=/opt/nvidia/hpc_sdk"
+echo "export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man"
+echo "export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH"
+
+git clone --recursive https://github.com/essentialsofparallelcomputing/Chapter10.git
+
+cd Chapter10; #make

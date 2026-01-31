@@ -1,0 +1,3 @@
+[submodule "BabelStream"]
+	path = BabelStream
+	url = https://github.com/UoB-HPC/BabelStream.git

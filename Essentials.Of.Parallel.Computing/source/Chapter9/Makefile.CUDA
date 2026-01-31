@@ -1,0 +1,31 @@
+All: BabelStream_CUDA Roofline_CUDA mixbench_CUDA PCI_Bandwidth_Benchmark_CUDA CloverLeaf_Power9
+
+.PHONY: BabelStream_CUDA Roofline_CUDA mixbench_CUDA PCI_Bandwidth_Benchmark_CUDA CloverLeaf_Power9
+
+BabelStream_CUDA:
+	cd BabelStream && make -f CUDA.make && ./cuda-stream
+
+Roofline_CUDA:
+	cd cs-roofline-toolkit/Empirical_Roofline_Tool-1.1.0 && \
+	  git clean -fd && git checkout */*.py ert && \
+	  cp ../../config.V100_gpu Config && \
+          2to3 -w ert Python Scripts && \
+          sed -i -e 's!len(msec_med)/2!len(msec_med)//2!' Scripts/preprocess.py && \
+          sed -i -e "s!subprocess.PIPE!subprocess.PIPE, encoding='utf8'!" Python/ert_utils.py && \
+          sed -i -e "/META_DATA/s!\] ==!\].strip() ==!" -e '/len(lines.i/s!\]) ==!\].strip()) ==!' Python/ert_core.py && \
+          ./ert Config/config.V100_gpu && \
+	  ps2pdf Results.V100_gpu/Run.001/roofline.ps && evince roofline.pdf
+
+mixbench_CUDA:
+	cd mixbench/mixbench-cuda && mkdir build && cd build && cmake .. && make CUDA_INSTALL_PATH=`nvcc`/.. && ./mixbench-cuda-ro
+
+PCI_Bandwidth_Benchmark_CUDA:
+	cd PCI_Bandwidth_Benchmark && make && ./pci_bw
+
+CloverLeaf_Power9:
+	./CloverLeaf_Power9_batch.sh
+
+clean:
+	cd mixbench/mixbench-cuda && rm -rf build
+	cd BabelStream; make clean
+	cd PCI_Bandwidth_Benchmark; make clean

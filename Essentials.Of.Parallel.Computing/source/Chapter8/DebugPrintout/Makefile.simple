@@ -1,0 +1,14 @@
+default:	DebugPrintout
+all:	DebugPrintout
+
+%.o: %.c
+	mpicc -c $^
+
+DebugPrintout: DebugPrintout.o timer.o
+	mpicc $^ -o DebugPrintout
+
+clean:
+	rm -f DebugPrintout DebugPrintout.o
+
+distclean:
+	rm -f Makefile

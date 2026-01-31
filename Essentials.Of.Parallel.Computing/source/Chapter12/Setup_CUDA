@@ -1,0 +1,26 @@
+# Nvidia GPU software for computation
+# Use your package manager to install "third-party drivers" and update to latest that
+#   your card can handle
+# See https://docs.nvidia.com/hpc-sdk/index.html for Nvidia install instructions
+# An older set of instructions are in the CUDA installation guide at 
+#   https://docs.nvidia.com/cuda/cuda-installation-guide-linux/. 
+# You should use your system’s package manager where possible.
+
+sudo wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-20-9_20.9_amd64.deb
+sudo wget --no-verbose https://developer.download.nvidia.com/hpc-sdk/20.9/nvhpc-2020_20.9_amd64.deb
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y ./nvhpc-20-9_20.9_amd64.deb ./nvhpc-2020_20.9_amd64.deb
+
+sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+
+export NVARCH=Linux_x86_64
+export NVCOMPILERS=/opt/nvidia/hpc_sdk
+export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man
+export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH
+
+#Put these in your dotfiles:
+
+echo "export NVARCH=`uname -s`_`uname -m`"
+echo "export NVCOMPILERS=/opt/nvidia/hpc_sdk"
+echo "export MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/20.9/compilers/man"
+echo "export PATH=$NVCOMPILERS/$NVARCH/20.9/compilers/bin:$PATH"

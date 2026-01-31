@@ -1,0 +1,43 @@
+=== Starting problem ===
+App launch reported: 2 (out of 2) daemons - 0 (out of 4) procs
+60 Checkpoint: Mon May 11 20:06:08 2020
+120 Checkpoint: Mon May 11 20:07:08 2020
+180 Checkpoint: Mon May 11 20:08:08 2020
+240 Checkpoint: Mon May 11 20:09:08 2020
+Batch Timeout : 23
+297 RESTART: Mon May 11 20:10:05 2020
+Finished mpirun
+=== Submitting restart script ===
+=== Restarting ./testapp ===
+App launch reported: 2 (out of 2) daemons - 0 (out of 4) procs
+300 Checkpoint: Mon May 11 20:10:11 2020
+360 Checkpoint: Mon May 11 20:11:11 2020
+420 Checkpoint: Mon May 11 20:12:12 2020
+480 Checkpoint: Mon May 11 20:13:12 2020
+540 Checkpoint: Mon May 11 20:14:12 2020
+Batch Timeout : 23
+594 RESTART: Mon May 11 20:15:05 2020
+Finished mpirun
+=== Submitting restart script ===
+=== Restarting ./testapp ===
+App launch reported: 2 (out of 2) daemons - 0 (out of 4) procs
+600 Checkpoint: Mon May 11 20:15:15 2020
+660 Checkpoint: Mon May 11 20:16:15 2020
+720 Checkpoint: Mon May 11 20:17:15 2020
+780 Checkpoint: Mon May 11 20:18:15 2020
+840 Checkpoint: Mon May 11 20:19:15 2020
+Batch Timeout : 23
+890 RESTART: Mon May 11 20:20:05 2020
+Finished mpirun
+=== Submitting restart script ===
+=== Restarting ./testapp ===
+App launch reported: 2 (out of 2) daemons - 0 (out of 4) procs
+900 Checkpoint: Mon May 11 20:20:19 2020
+960 Checkpoint: Mon May 11 20:21:19 2020
+1020 Checkpoint: Mon May 11 20:22:19 2020
+1080 Checkpoint: Mon May 11 20:23:19 2020
+1140 Checkpoint: Mon May 11 20:24:19 2020
+Batch Timeout : 23
+1186 RESTART: Mon May 11 20:25:05 2020
+Finished mpirun
+=== Reached maximum number of restarts ===
