@@ -11,3 +11,4 @@
 - [计算机是如何工作的](How.Computers.Really.Work)
 - [并发编程图解](Grokking.Concurrency)
 - [Linux系统编程](Linux.System.Programming.Techniques)
+- [并行计算与高性能计算](Essentials.Of.Parallel.Computing)
