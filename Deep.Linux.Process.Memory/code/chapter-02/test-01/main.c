@@ -2,9 +2,6 @@
 #include <stdio.h>
 #include "clock.h" 
 
-// 测试用的全局内存区域
-double data[MAXELEMS];      
-
 // 内存测试区域从 2 KB 开始，最大到 64 MB 
 #define MINBYTES (1 << 11)  // 2 KB
 #define MAXBYTES (1 << 26)  // 64 MB
@@ -12,6 +9,9 @@ double data[MAXELEMS];
 // 循环步长从1 到 64 字节
 #define MAXSTRIDE 64        
 #define MAXELEMS MAXBYTES/sizeof(double) 
+
+// 测试用的全局内存区域
+double data[MAXELEMS];      
 
 void init_data(double *data, int n);
 void run_delay_testing();
