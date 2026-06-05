@@ -12,3 +12,4 @@
 - [并发编程图解](Grokking.Concurrency)
 - [Linux系统编程](Linux.System.Programming.Techniques)
 - [并行计算与高性能计算](Essentials.Of.Parallel.Computing)
+- [深入理解Linux进程与内存](Deep.Linux.Process.Memory)
